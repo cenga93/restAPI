@@ -3,21 +3,30 @@ import { IFilter } from '../interfaces/filter';
 import { IUser } from '../interfaces/user';
 import { Request } from 'express';
 
+/**
+ *
+ * @param Collection
+ * @param req
+ */
 const create = async (Collection: Model<any>, req: Request): Promise<IUser | null> => {
-     /**  Filter*/
+     /**  Filter */
      const filter: IFilter = { email: req.body.email };
 
-     /** Check if email is already in use */
+     /** Checking the existing */
      const exists = await isExists(Collection, filter);
 
      if (exists) return null;
-
 
      const newObject = new Collection(req.body);
 
      return await newObject.save();
 };
 
+/**
+ *
+ * @param Collection
+ * @param filter
+ */
 const isExists = async (Collection: Model<any>, filter: IFilter): Promise<boolean> => {
      return await Collection.exists(filter);
 };

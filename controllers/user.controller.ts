@@ -12,7 +12,7 @@ import ApiError from '../utils/ApiError';
  *
  * @param req - Request
  * @param res - Response
- * @returns IUser
+ * @returns IUser (created)
  */
 export const create = catchAsync(async (req: Request, res: Response) => {
      const newUser: IUser | null = await Default.create(User, req);
@@ -47,7 +47,7 @@ export const getOne = catchAsync(async (req: Request, res: Response) => {
 
      const user = await Default.getOne(User, filter);
 
-     if (!user) throw new ApiError(httpStatus.FORBIDDEN, 'Not found user');
+     if (!user) throw new ApiError(httpStatus.FORBIDDEN, 'User not found');
 
      res.status(httpStatus.OK).json(user);
 });
