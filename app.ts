@@ -3,8 +3,7 @@ dotenv.config({ path: '.env' });
 import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import router from './router/index';
-const { errorConverter, errorHandler } = require('./middleware/error');
+import router from './routes/index';
 const app: Express = express();
 
 app.use(
@@ -22,17 +21,15 @@ app.use((req: Request, res: Response, next: NextFunction) => {
      return next();
 });
 
-// parse application/x-www-form-urlencoded
+/** Parse application/x-www-form-urlencoded */
 app.use(express.urlencoded({ extended: true }));
 
-// parse application/json
+/** Parse application/json */
 app.use(express.json());
 
 mongoose.Promise = global.Promise;
 
+/** Router */
 app.use('/api', router());
-
-app.use(errorConverter);
-app.use(errorHandler);
 
 export default app;
