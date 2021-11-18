@@ -8,6 +8,21 @@ import { IFilter } from '../interfaces/filter';
 import ApiError from '../utils/ApiError';
 
 /**
+ * Create new users
+ *
+ * @param req - Request
+ * @param res - Response
+ * @returns IUser
+ */
+export const create = catchAsync(async (req: Request, res: Response) => {
+     const newUser: IUser | null = await Default.create(User, req);
+
+     if (newUser === null) throw new ApiError(httpStatus.FORBIDDEN, 'User already exists');
+
+     res.status(httpStatus.OK).json(newUser);
+});
+
+/**
  * Get all users
  *
  * @param req - Request

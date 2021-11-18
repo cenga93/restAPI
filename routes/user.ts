@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAll,getOne ,remove} from '../controllers/user.controller';
+import { create, getAll, getOne, remove } from '../controllers/user.controller';
 
 export default () => {
      const router = Router();
@@ -7,6 +7,7 @@ export default () => {
      router.get('/', getAll);
      router.get('/:userId', getOne);
      router.delete('/:userId', remove);
+     router.post('/', create);
 
      return router;
 };
