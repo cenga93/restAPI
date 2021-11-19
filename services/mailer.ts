@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import { IUser } from '../interfaces/user';
+import { IUser } from '../interfaces';
 
 const transporter = nodemailer.createTransport({
      service: 'gmail',

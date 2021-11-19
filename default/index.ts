@@ -1,11 +1,11 @@
 import { Model } from 'mongoose';
-import { IFilter } from '../interfaces/filter';
-import { IUser } from '../interfaces/user';
+import { IFilter, IUser } from '../interfaces';
 
 /**
  *
  * @param Collection
  * @param filter
+ * @return boolean
  */
 const isExists = async (Collection: Model<any>, filter: IFilter): Promise<boolean> => {
      return await Collection.exists(filter);
@@ -14,6 +14,7 @@ const isExists = async (Collection: Model<any>, filter: IFilter): Promise<boolea
 /**
  *
  * @param Collection
+ * @return User[]
  */
 const getAll = async (Collection: Model<any>): Promise<IUser[]> => {
      return Collection.find();
@@ -23,6 +24,7 @@ const getAll = async (Collection: Model<any>): Promise<IUser[]> => {
  *
  * @param Collection
  * @param filter
+ * @return IUser
  */
 const getOne = async (Collection: any, filter: IFilter): Promise<IUser> => {
      return await Collection.findOne(filter);
@@ -32,6 +34,7 @@ const getOne = async (Collection: any, filter: IFilter): Promise<IUser> => {
  *
  * @param Collection
  * @param filter
+ * @return IUser
  */
 const remove = async (Collection: any, filter: IFilter): Promise<IUser> => {
      return await Collection.findOneAndRemove(filter);

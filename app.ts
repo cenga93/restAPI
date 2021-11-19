@@ -1,9 +1,10 @@
 import dotenv from 'dotenv';
 dotenv.config({ path: '.env' });
 import express, { Express, Request, Response, NextFunction } from 'express';
-import cors from 'cors';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import router from './routes/index';
+
 const app: Express = express();
 
 app.use(

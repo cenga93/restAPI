@@ -1,6 +1,6 @@
-import app from './app';
 import { connect } from 'mongoose';
 const { errorConverter, errorHandler } = require('./middleware/error');
+import app from './app';
 
 /** Starting the server */
 app.listen(3000, async (): Promise<void> => {

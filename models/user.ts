@@ -1,6 +1,6 @@
 import { Document, Model, model, Schema, Types } from 'mongoose';
 import bcrypt from 'bcrypt';
-import { IUser } from '../interfaces/user';
+import { IUser } from '../interfaces';
 
 export interface IUserModel extends IUser, Document {
      comparePassword(userPassword: string): Promise<boolean>;
@@ -39,11 +39,15 @@ const UserSchema = new Schema(
      }
 );
 
-/** Compare passwords */
-UserSchema.methods.comparePassword = async function (userPassword: string) {
-     const user = this as IUserModel;
+/**
+ * Compare password entered by the user and password from database
+ *
+ * @param userPassword - Entered password
+ */
+UserSchema.methods.comparePassword = async function (userPassword: string): Promise<boolean> {
+     const user: IUser = this as IUserModel;
 
-     return bcrypt.compare(userPassword, <string>user.password).catch(() => false);
+     return await bcrypt.compare(userPassword, <string>user.password).catch(() => false);
 };
 
 /**  Hashing password */

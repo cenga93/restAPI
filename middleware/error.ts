@@ -1,6 +1,6 @@
-import ApiError, { IError } from '../utils/ApiError';
 import { NextFunction, Request, Response } from 'express';
 import httpStatus from 'http-status';
+import ApiError, { IError } from '../utils/ApiError';
 
 /**
  * Errors converter
@@ -29,7 +29,7 @@ export const errorConverter = (err: IError, req: Request, res: Response, next: N
  * @param _next - NextFunction
  */
 export const errorHandler = (err: IError, req: Request, res: Response, _next: NextFunction): Response => {
-     let { statusCode, message } = err;
+     const { statusCode, message } = err;
 
      const response = { code: statusCode, message };
 
