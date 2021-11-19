@@ -1,4 +1,4 @@
-import { Document, Model, model, Schema } from 'mongoose';
+import { Document, Model, model, Schema, Types } from 'mongoose';
 import bcrypt from 'bcrypt';
 import { IUser } from '../interfaces/user';
 
@@ -26,28 +26,27 @@ const UserSchema = new Schema(
                required: true,
                unique: true,
           },
+          verified: {
+               type: Boolean,
+               default: false,
+          },
+          code: {
+               type: String,
+          },
      },
      {
           timestamps: true,
      }
 );
 
-/**
- *  Compare passwords
- *a
- * @param userPassword
- * @return boolean
- */
+/** Compare passwords */
 UserSchema.methods.comparePassword = async function (userPassword: string) {
      const user = this as IUserModel;
 
-     return bcrypt.compare(userPassword, user.password).catch(() => false);
+     return bcrypt.compare(userPassword, <string>user.password).catch(() => false);
 };
 
-UserSchema.methods.getCollectionName = function () {
-     return 'testiranje';
-};
-
+/**  Hashing password */
 UserSchema.pre('save', async function (next): Promise<void> {
      let user = this;
 
@@ -57,6 +56,15 @@ UserSchema.pre('save', async function (next): Promise<void> {
      /** Random additional data */
      const salt: string = await bcrypt.genSalt(10);
      user.password = bcrypt.hashSync(user.password, salt);
+
+     return next();
+});
+
+/**  Before  create new user, create the code for verification */
+UserSchema.pre('save', async function (next): Promise<void> {
+     let user = this;
+
+     user.code = new Types.ObjectId().toString();
 
      return next();
 });

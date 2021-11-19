@@ -6,20 +6,19 @@ import httpStatus from 'http-status';
 import { IUser } from '../interfaces/user';
 import { IFilter } from '../interfaces/filter';
 import ApiError from '../utils/ApiError';
+import userRepository from '../repositories/user';
 
 /**
- * Create new users
+ * Create user
  *
  * @param req - Request
  * @param res - Response
  * @returns IUser (created)
  */
 export const create = catchAsync(async (req: Request, res: Response) => {
-     const newUser: IUser | null = await Default.create(User, req);
+     const response: IUser | null = await userRepository.createUser(req);
 
-     if (newUser === null) throw new ApiError(httpStatus.FORBIDDEN, 'User already exists');
-
-     res.status(httpStatus.OK).json(newUser);
+     res.status(httpStatus.OK).json(response);
 });
 
 /**
