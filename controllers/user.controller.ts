@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import { catchAsync } from 'catch-async-express';
 import Default from '../default/index';
-import User from '../models/user';
+import User, { IUserModel } from '../models/user';
 import { IUser, IFilter } from '../interfaces';
 import ApiError from '../utils/ApiError';
 import userRepository from '../repositories/user';
@@ -10,8 +10,8 @@ import userRepository from '../repositories/user';
 /**
  * Create user.
  *
- * @param req - Request
- * @param res - Response
+ * @param req - This should be the Request
+ * @param res - This should be the Response
  * @returns IUser (created)
  */
 export const create = catchAsync(async (req: Request, res: Response): Promise<void> => {
@@ -23,12 +23,14 @@ export const create = catchAsync(async (req: Request, res: Response): Promise<vo
 /**
  * Get all users.
  *
- * @param req - Request
- * @param res - Response
+ * @param req - This should be the Request
+ * @param res - This should be the Response
  * @returns IUser[]
  */
 export const getAll = catchAsync(async (req: Request, res: Response): Promise<void> => {
-     const users: IUser[] = await Default.getAll(User);
+     const notAllowedFields = { code: false };
+
+     const users: IUserModel[] = await Default.getAll(User, notAllowedFields);
 
      res.status(httpStatus.OK).json(users);
 });
@@ -36,8 +38,8 @@ export const getAll = catchAsync(async (req: Request, res: Response): Promise<vo
 /**
  * Get one user
  *
- * @param req - Request
- * @param res - Response
+ * @param req - This should be the Request
+ * @param res - This should be the Response
  * @returns IUser
  */
 export const getOne = catchAsync(async (req: Request, res: Response): Promise<void> => {

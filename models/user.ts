@@ -1,10 +1,10 @@
-import { Document, Model, model, Schema, Types } from 'mongoose';
+import { Document, Model, model, Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 import { IUser } from '../interfaces';
 
 export interface IUserModel extends IUser, Document {
      comparePassword(userPassword: string): Promise<boolean>;
-     getCollectionName(): string;
+     getPublicFields(): Promise<IUser>;
 }
 
 const UserSchema = new Schema(
@@ -64,14 +64,11 @@ UserSchema.pre('save', async function (next): Promise<void> {
      return next();
 });
 
-/**  Before  create new user, create the code for verification */
-UserSchema.pre('save', async function (next): Promise<void> {
-     let user = this;
-
-     user.code = new Types.ObjectId().toString();
-
-     return next();
-});
+/** Get public fields */
+UserSchema.methods.getPublicFields = async function (): Promise<IUser> {
+     const { firstName, lastName, password, email, verified, _id, createdAt, updatedAt }: IUser = this as IUserModel;
+     return { firstName, lastName, password, email, verified, _id, createdAt, updatedAt };
+};
 
 const User: Model<IUserModel> = model<IUserModel>('User', UserSchema);
 
