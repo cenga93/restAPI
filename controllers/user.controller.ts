@@ -54,8 +54,8 @@ export const getOne = catchAsync(async (req: Request, res: Response): Promise<vo
 /**
  * Remove user.
  *
- * @param req - Request
- * @param res - Response
+ * @param req - This should be the Request
+ * @param res - This should be the Response
  * @returns IUser (deleted)
  */
 export const remove = catchAsync(async (req: Request, res: Response): Promise<void> => {
