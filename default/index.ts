@@ -25,10 +25,11 @@ const getAll = async (Collection: Model<any>, notAllowedFields?: ISelect): Promi
  *
  * @param Collection
  * @param filter
+ * @param notAllowedFields
  * @return IUser
  */
-const getOne = async (Collection: any, filter: IFilter): Promise<any> => {
-     return await Collection.findOne(filter);
+const getOne = async (Collection: any, filter: IFilter, notAllowedFields?: ISelect): Promise<any> => {
+     return await Collection.findOne(filter).select(notAllowedFields);
 };
 
 /**
