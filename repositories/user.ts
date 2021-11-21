@@ -5,6 +5,7 @@ import Default from '../default';
 import User, { IUserModel } from '../models/user';
 import ApiError from '../utils/ApiError';
 import { sendWelcomeMail } from '../services/mailer';
+import { UpdateQuery } from 'mongoose';
 
 /**
  *  Create new user.
@@ -31,4 +32,18 @@ const createUser = async (req: Request): Promise<IUser> => {
      return await data.getPublicFields();
 };
 
-export default { createUser };
+/**
+ *  Update user.
+ *
+ * @param body - This should be the data for updating.
+ * @param _id - This should be the user id.
+ */
+const updateUser = async (body: UpdateQuery<IUserModel> | undefined, _id: string): Promise<IUser> => {
+     const user = await User.findOneAndUpdate({ _id }, body, { new: true });
+
+     if (!user) throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+
+     return user;
+};
+
+export default { createUser, updateUser };
