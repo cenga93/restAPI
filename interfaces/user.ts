@@ -8,5 +8,6 @@ export interface IUser {
      updatedAt: Date;
      code?: string;
      verified: boolean;
+     role: string;
      _doc?: Object;
 }

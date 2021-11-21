@@ -1,6 +1,7 @@
 import { Document, Model, model, Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 import { IUser } from '../interfaces';
+import { Roles } from '../config/enums';
 
 export interface IUserModel extends IUser, Document {
      comparePassword(userPassword: string): Promise<boolean>;
@@ -32,6 +33,12 @@ const UserSchema = new Schema(
           },
           code: {
                type: String,
+          },
+
+          role: {
+               type: String,
+               enum: Object.values(Roles),
+               default: Roles.USER,
           },
      },
      {
@@ -66,8 +73,8 @@ UserSchema.pre('save', async function (next): Promise<void> {
 
 /** Get public fields */
 UserSchema.methods.getPublicFields = async function (): Promise<IUser> {
-     const { firstName, lastName, password, email, verified, _id, createdAt, updatedAt }: IUser = this as IUserModel;
-     return { firstName, lastName, password, email, verified, _id, createdAt, updatedAt };
+     const { firstName, lastName, password, email, verified, _id, role, createdAt, updatedAt }: IUser = this as IUserModel;
+     return { firstName, lastName, password, email, verified, _id, createdAt, updatedAt, role };
 };
 
 const User: Model<IUserModel> = model<IUserModel>('User', UserSchema);
