@@ -10,6 +10,7 @@ import ApiError, { IError } from '../utils/ApiError';
  * @param res - Response
  * @param next - NextFunction
  */
+
 export const errorConverter = (err: IError, req: Request, res: Response, next: NextFunction): void => {
      let error: any = err;
      if (!(error instanceof ApiError)) {

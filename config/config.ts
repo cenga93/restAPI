@@ -1,7 +1,6 @@
 import Joi from 'joi';
 
-const envVarsSchema = Joi.object()
-     .keys({
+const envVarsSchema = Joi.object().keys({
           JWT_ACCESS_EXPIRATION_MINUTES: Joi.number().default(1440).description('minutes after which access tokens expire'), //24h
           JWT_REFRESH_EXPIRATION_DAYS: Joi.number().default(30).description('days after which refresh tokens expire'),
      })

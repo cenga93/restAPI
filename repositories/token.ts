@@ -48,8 +48,6 @@ const generateAuthTokens = async (user: IUser): Promise<IToken> => {
      const accessTokenExpires: Date = addMinutes(new Date(), config.jwt.accessExpirationMinutes);
      const accessToken: string = generateToken(_id, accessTokenExpires, TokenTypes.ACCESS);
 
-     console.log(accessTokenExpires);
-
      const refreshTokenExpires: Date = addDays(new Date(), config.jwt.refreshExpirationDays);
      const refreshToken: string = generateToken(_id, refreshTokenExpires, TokenTypes.REFRESH);
 
