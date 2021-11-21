@@ -8,4 +8,5 @@ export interface IUser {
      updatedAt: Date;
      code?: string;
      verified: boolean;
+     _doc?: Object;
 }

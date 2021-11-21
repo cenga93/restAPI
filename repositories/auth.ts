@@ -1,15 +1,16 @@
 import httpStatus from 'http-status';
 import Default from '../default/';
-import User from '../models/user';
+import User, { IUserModel } from '../models/user';
 import ApiError from '../utils/ApiError';
+import { IFilter, ISelect } from '../interfaces';
 
-const loginWithEmailAndPassword = async (email: string, userPassword: string) => {
+const loginWithEmailAndPassword = async (email: string, userPassword: string): Promise<IUserModel> => {
      /** Filter */
-     const filter = { email };
+     const filter: IFilter = { email };
 
-     const notAllowedFields = { code: false };
+     const notAllowedFields: ISelect = { code: false };
 
-     const user = await Default.getOne(User, filter, notAllowedFields);
+     const user: IUserModel = await Default.getOne(User, filter, notAllowedFields);
 
      if (!user || !(await user.comparePassword(userPassword))) {
           throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');

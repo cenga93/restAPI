@@ -4,8 +4,10 @@ import jwt from 'jsonwebtoken';
 import { TokenTypes } from '../config/enums';
 import { addMinutes, getUnixTime, addDays } from 'date-fns';
 import Token from '../models/token';
+import { IToken } from '../interfaces/token';
 
 /**
+ * Generate token with jwt
  *
  * @param userId - This should be the id of user
  * @param expires - This should be the token expiration date
@@ -22,6 +24,7 @@ export const generateToken = (userId: string, expires: number | Date, type: any)
 };
 
 /**
+ * Save token in database
  *
  * @param token - This should be the created token
  * @param userId - This should be the id of user
@@ -34,18 +37,22 @@ const saveToken = async (token: string, userId: string, expires: Date, type: str
 };
 
 /**
+ * This function returns the access token and  refresh token
  *
  * @param user - IUser
- * @returns  - access token and  refresh token
+ * @returns  - IToken
  */
-const generateAuthTokens = async (user: IUser) => {
-     const accessTokenExpires = addMinutes(new Date(), 30);
-     const accessToken = generateToken(user._id, accessTokenExpires, TokenTypes.ACCESS);
+const generateAuthTokens = async (user: IUser): Promise<IToken> => {
+     const { _id } = user;
 
-     const refreshTokenExpires = addDays(new Date(), config.jwt.refreshExpirationDays);
-     const refreshToken: string = generateToken(user._id, refreshTokenExpires, TokenTypes.REFRESH);
+     const accessTokenExpires: Date = addMinutes(new Date(), 30);
+     const accessToken: string = generateToken(_id, accessTokenExpires, TokenTypes.ACCESS);
 
-     await saveToken(refreshToken, user._id, refreshTokenExpires, TokenTypes.REFRESH);
+     const refreshTokenExpires: Date = addDays(new Date(), config.jwt.refreshExpirationDays);
+     const refreshToken: string = generateToken(_id, refreshTokenExpires, TokenTypes.REFRESH);
+
+     /** Save refresh token in database */
+     await saveToken(refreshToken, _id, refreshTokenExpires, TokenTypes.REFRESH);
 
      return {
           access: {

@@ -5,6 +5,7 @@ import User, { IUserModel } from '../models/user';
 import ApiError from '../utils/ApiError';
 import authRepository from '../repositories/auth';
 import tokenRepository from '../repositories/token';
+import { IToken } from '../interfaces/token';
 
 /**
  *  Login.
@@ -12,11 +13,11 @@ import tokenRepository from '../repositories/token';
  * @param req - This should be the Request
  * @param res - This should be the Response
  */
-export const login = catchAsync(async (req: Request, res: Response) => {
+export const login = catchAsync(async (req: Request, res: Response): Promise<void> => {
      const { email, password } = req.body;
 
-     const user = await authRepository.loginWithEmailAndPassword(email, password);
-     const tokens = await tokenRepository.generateAuthTokens(user);
+     const user: IUserModel = await authRepository.loginWithEmailAndPassword(email, password);
+     const tokens: IToken = await tokenRepository.generateAuthTokens(user);
 
      res.status(httpStatus.OK).json({ ...user._doc, ...tokens });
 });

@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import * as authValidation from '../validations/auth.validation';
-import { verify, login } from '../controllers/auth.controller';
+import * as authController from '../controllers/auth.controller';
 import validate from '../middleware/validation';
 
 export default () => {
      const router = Router();
 
-     router.post('/verification/:verifyId', verify);
-     router.post('/login', validate(authValidation.login), login);
+     router.post('/login', validate(authValidation.login), authController.login);
+     router.post('/verification/:verifyId', validate(authValidation.verify), authController.verify);
 
      return router;
 };
