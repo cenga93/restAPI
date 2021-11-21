@@ -11,13 +11,8 @@ export enum TokenTypes {
      RESET_PASSWORD = 'resetPassword',
 }
 
-export enum MembershipTypes {
-     TRIAL = 'trial',
-     FREE = 'free',
-     PAID = 'paid',
-}
-
 export enum Roles {
      USER = 'user',
+     MODERATOR = 'moderator',
      ADMIN = 'admin',
 }
