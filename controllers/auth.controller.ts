@@ -16,7 +16,7 @@ import { IToken } from '../interfaces/token';
 export const login = catchAsync(async (req: Request, res: Response): Promise<void> => {
      const { email, password } = req.body;
 
-     const user: IUserModel = await authRepository.loginWithEmailAndPassword(email, password);
+     const user: IUserModel | null = await authRepository.loginWithEmailAndPassword(email, password);
      const tokens: IToken = await tokenRepository.generateAuthTokens(user);
 
      res.status(httpStatus.OK).json({ ...user._doc, ...tokens });
