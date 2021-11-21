@@ -43,3 +43,13 @@ export const verify = catchAsync(async (req: Request, res: Response): Promise<vo
 
      res.status(httpStatus.OK).json(verifiedUser);
 });
+
+/**
+ * Currently logged in user
+ *
+ * @param req - This should be the Request
+ * @param res - This should be the Response
+ */
+export const me = catchAsync(async (req: Request, res: Response): Promise<void> => {
+     res.status(httpStatus.OK).json(req.user);
+});
