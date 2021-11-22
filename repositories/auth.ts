@@ -5,11 +5,8 @@ import ApiError from '../utils/ApiError';
 import { IFilter, ISelect } from '../interfaces';
 
 const loginWithEmailAndPassword = async (email: string, userPassword: string): Promise<IUserModel> => {
-     /** Filter */
      const filter: IFilter = { email };
-
      const notAllowedFields: ISelect = { code: false };
-
      const user: IUserModel = await Default.getOne(User, filter, notAllowedFields);
 
      if (!user || !(await user.comparePassword(userPassword))) {

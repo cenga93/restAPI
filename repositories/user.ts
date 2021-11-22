@@ -37,6 +37,7 @@ const createUser = async (req: Request): Promise<IUser> => {
  *
  * @param body - This should be the data for updating.
  * @param _id - This should be the user id.
+ * @return IUser
  */
 const updateUser = async (body: UpdateQuery<IUserModel> | undefined, _id: string): Promise<IUser> => {
      const user = await User.findOneAndUpdate({ _id }, body, { new: true });

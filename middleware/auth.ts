@@ -5,8 +5,16 @@ import { rolePermissions } from '../config/roles';
 import { Request, Response, NextFunction } from 'express';
 import { IUser } from '../interfaces';
 
-const verifyCallbackFactory = (req: Request, resolve: any, reject: any, requiredPermissions: any) => async (err: any, user: IUser | null, info: any) => {
-          if (err || info || !user){
+/**
+ *
+ * @param req - This should be the Request
+ * @param requiredPermissions - This should be the permissions for this route.
+ * @param resolve
+ * @param reject
+ */
+const verifyCallbackFactory =
+     (req: Request, resolve: any, reject: any, requiredPermissions: any) => async (err: any, user: IUser | null, info: any) => {
+          if (err || info || !user) {
                return reject(new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate'));
           }
 
@@ -14,7 +22,9 @@ const verifyCallbackFactory = (req: Request, resolve: any, reject: any, required
 
           if (requiredPermissions.length) {
                const userPermissions = rolePermissions.get(user.role);
-               const hasRequiredPermissions = requiredPermissions.every((requiredPermission: any) => userPermissions.includes(requiredPermission));
+               const hasRequiredPermissions = requiredPermissions.every((requiredPermission: any) =>
+                    userPermissions.includes(requiredPermission)
+               );
 
                if (!hasRequiredPermissions && req.params.userId !== user._id) {
                     return reject(new ApiError(httpStatus.FORBIDDEN, "You don't have a permission for this action"));
@@ -25,9 +35,11 @@ const verifyCallbackFactory = (req: Request, resolve: any, reject: any, required
 
 /**
  *
- * @param requiredPermissions - This should be the
+ * @param requiredPermissions - This should be the permissions for this route.
  */
-const auth = (...requiredPermissions: any[]) => async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const auth =
+     (...requiredPermissions: any[]) =>
+     async (req: Request, res: Response, next: NextFunction): Promise<void> => {
           return new Promise((resolve, reject) => {
                const verifyCallback = verifyCallbackFactory(req, resolve, reject, requiredPermissions);
                const jwtAuth = passport.authenticate('jwt', { session: false }, verifyCallback);

@@ -13,7 +13,7 @@ import { IToken } from '../interfaces/token';
  * @param expires - This should be the token expiration date
  * @param type - This should be the token expiration date
  */
-export const generateToken = (userId: string, expires: number | Date, type: any) => {
+export const generateToken = (userId: string, expires: number | Date, type: any): string => {
      const payload = {
           sub: userId,
           iat: getUnixTime(new Date()),
@@ -32,15 +32,15 @@ export const generateToken = (userId: string, expires: number | Date, type: any)
  * @param type - This should be the token expiration date
  * @param blacklisted - This should be the boolean value
  */
-const saveToken = async (token: string, userId: string, expires: Date, type: string, blacklisted: boolean = false) => {
+const saveToken = async (token: string, userId: string, expires: Date, type: string, blacklisted: boolean = false): Promise<void> => {
      await Token.create({ token, user: userId, expires, type, blacklisted });
 };
 
 /**
  * This function returns the access token and  refresh token
  *
- * @param user - IUser
- * @returns  - IToken
+ * @param user - This should be the IUser
+ * @return IToken
  */
 const generateAuthTokens = async (user: IUser): Promise<IToken> => {
      const { _id } = user;
