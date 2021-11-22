@@ -22,14 +22,14 @@ const createUser = async (req: Request): Promise<IUser> => {
 
      body.code = Math.round(Math.random() * (9999 - 1000) + 1000);
 
-     const data: IUserModel = await new User(body).save();
+     const user: IUserModel = await new User(body).save();
 
      const url: URL = new URL(`${req.protocol}://${req.get('host')}${req.originalUrl}`);
 
      /** Send welcome mail to new user email */
-     await sendWelcomeMail(data, url);
+     await sendWelcomeMail(user, url);
 
-     return await data.getPublicFields();
+     return await user.getPublicFields();
 };
 
 /**
@@ -40,7 +40,6 @@ const createUser = async (req: Request): Promise<IUser> => {
  */
 const updateUser = async (body: UpdateQuery<IUserModel> | undefined, _id: string): Promise<IUser> => {
      const user = await User.findOneAndUpdate({ _id }, body, { new: true });
-
      if (!user) throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
 
      return user;

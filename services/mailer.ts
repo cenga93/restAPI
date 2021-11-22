@@ -12,11 +12,11 @@ const transporter = nodemailer.createTransport({
 /**
  *  Send welcome mail.
  *
- * @param data - This should be the object of new user.
+ * @param user - This should be the object of new user.
  * @param url -  This should be the instance of URL.
  */
-export const sendWelcomeMail = async (data: IUserModel, url: URL): Promise<void> => {
-     const { firstName, lastName, code, email, _id } = data;
+export const sendWelcomeMail = async (user: IUserModel, url: URL): Promise<void> => {
+     const { firstName, lastName, code, email, _id } = user;
      const { origin } = url;
 
      await transporter.sendMail({

@@ -5,8 +5,8 @@ import validate from '../middleware/validation';
 import * as authValidation from '../validations/auth.validation';
 import { create, getAll, getOne, remove, update } from '../controllers/user.controller';
 
-export default () => {
-     const router = Router();
+export default (): Router => {
+     const router: Router = Router();
      const { READ, UPDATE, DELETE } = Permissions;
 
      router.post('/', validate(authValidation.createUser), create);

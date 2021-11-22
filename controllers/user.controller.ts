@@ -15,9 +15,9 @@ import userRepository from '../repositories/user';
  * @return IUser (created)
  */
 export const create = catchAsync(async (req: Request, res: Response): Promise<void> => {
-     const response: IUser = await userRepository.createUser(req);
+     const newUser: IUser = await userRepository.createUser(req);
 
-     res.status(httpStatus.OK).json(response);
+     res.status(httpStatus.OK).json(newUser);
 });
 
 /**
