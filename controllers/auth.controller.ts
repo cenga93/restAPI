@@ -5,7 +5,7 @@ import User, { IUserModel } from '../models/user';
 import ApiError from '../utils/ApiError';
 import authRepository from '../repositories/auth';
 import tokenRepository from '../repositories/token';
-import { IToken } from '../interfaces/token';
+import { IToken } from '../interfaces';
 
 /**
  *  Login.

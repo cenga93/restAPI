@@ -15,7 +15,7 @@ const isExists = async (Collection: Model<any>, filter: IFilter): Promise<boolea
  *
  * @param Collection
  * @param notAllowedFields - This should be the ISelect
- * @return User[]
+ * @return any[]
  */
 const getAll = async (Collection: Model<any>, notAllowedFields?: ISelect): Promise<any[]> => {
      return Collection.find().select(notAllowedFields);
@@ -26,7 +26,7 @@ const getAll = async (Collection: Model<any>, notAllowedFields?: ISelect): Promi
  * @param Collection
  * @param filter
  * @param notAllowedFields
- * @return IUser
+ * @return 'collection-item'
  */
 const getOne = async (Collection: any, filter: IFilter, notAllowedFields?: ISelect): Promise<any> => {
      return await Collection.findOne(filter).select(notAllowedFields);
@@ -36,7 +36,7 @@ const getOne = async (Collection: any, filter: IFilter, notAllowedFields?: ISele
  *
  * @param Collection
  * @param filter
- * @return IUser
+ * @return collection-item'
  */
 const remove = async (Collection: any, filter: IFilter): Promise<any> => {
      return await Collection.findOneAndRemove(filter);

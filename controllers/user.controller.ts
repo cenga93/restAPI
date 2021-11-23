@@ -12,7 +12,6 @@ import userRepository from '../repositories/user';
  *
  * @param req - This should be the Request
  * @param res - This should be the Response
- * @return IUser (created)
  */
 export const create = catchAsync(async (req: Request, res: Response): Promise<void> => {
      const newUser: IUser = await userRepository.createUser(req);
@@ -25,7 +24,6 @@ export const create = catchAsync(async (req: Request, res: Response): Promise<vo
  *
  * @param req - This should be the Request
  * @param res - This should be the Response
- * @return IUser[]
  */
 export const getAll = catchAsync(async (req: Request, res: Response): Promise<void> => {
      const notAllowedFields = { code: false };
@@ -40,7 +38,6 @@ export const getAll = catchAsync(async (req: Request, res: Response): Promise<vo
  *
  * @param req - This should be the Request
  * @param res - This should be the Response
- * @return IUser
  */
 export const getOne = catchAsync(async (req: Request, res: Response): Promise<void> => {
      const filter: IFilter = { _id: req.params.userId };
@@ -56,7 +53,6 @@ export const getOne = catchAsync(async (req: Request, res: Response): Promise<vo
  *
  * @param req - This should be the Request
  * @param res - This should be the Response
- * @return IUser (deleted)
  */
 export const remove = catchAsync(async (req: Request, res: Response): Promise<void> => {
      const filter: IFilter = { _id: req.params.userId };
@@ -72,7 +68,6 @@ export const remove = catchAsync(async (req: Request, res: Response): Promise<vo
  *
  * @param req - This should be the Request
  * @param res - This should be the Response
- * @return IUser (updated)
  */
 export const update = catchAsync(async (req: Request, res: Response): Promise<void> => {
      const _id: string = req.params.userId;

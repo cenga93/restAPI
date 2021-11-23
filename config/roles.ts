@@ -1,7 +1,40 @@
-import { Roles, Permissions } from './enums';
-
+import { Roles } from './enums';
+import { Permissions } from './permissions';
 export const rolePermissions = new Map();
 
-rolePermissions.set(Roles.USER, [Permissions.READ]);
-rolePermissions.set(Roles.MODERATOR, [Permissions.READ, Permissions.CREATE, Permissions.UPDATE]);
-rolePermissions.set(Roles.ADMIN, [Permissions.READ, Permissions.CREATE, Permissions.UPDATE, Permissions.DELETE]);
+/** -------- USER -------- */
+rolePermissions.set(Roles.USER, [
+     // Auth
+     Permissions.user.READ,
+     Permissions.user.CREATE,
+
+     // Product
+     Permissions.product.CREATE,
+     Permissions.product.READ,
+]);
+
+/** -------- MODERATOR -------- */
+rolePermissions.set(Roles.MODERATOR, [
+     // Auth
+     Permissions.user.READ,
+     Permissions.user.CREATE,
+     Permissions.user.UPDATE,
+
+     // Product
+     Permissions.product.CREATE,
+     Permissions.product.READ,
+]);
+
+/** -------- ADMIN -------- */
+rolePermissions.set(Roles.ADMIN, [
+     // Auth
+     Permissions.user.READ,
+     Permissions.user.CREATE,
+     Permissions.user.UPDATE,
+     Permissions.user.DELETE,
+
+     // Product
+     Permissions.product.CREATE,
+     Permissions.product.READ,
+     Permissions.product.DELETE,
+]);

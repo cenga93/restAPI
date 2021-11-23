@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { TokenTypes } from '../config/enums';
 import { addMinutes, getUnixTime, addDays } from 'date-fns';
 import Token from '../models/token';
-import { IToken } from '../interfaces/token';
+import { IToken } from '../interfaces';
 
 /**
  * Generate token with jwt

@@ -1,6 +1,6 @@
 import { Document, Model, model, Schema } from 'mongoose';
 import { TokenTypes } from '../config/enums';
-import { IToken } from '../interfaces/token';
+import { IToken } from '../interfaces';
 
 export interface ITokenModel extends IToken, Document {}
 
