@@ -37,4 +37,5 @@ rolePermissions.set(Roles.ADMIN, [
      Permissions.product.CREATE,
      Permissions.product.READ,
      Permissions.product.DELETE,
+     Permissions.product.UPDATE,
 ]);

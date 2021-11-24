@@ -6,9 +6,9 @@ import product from './product';
 export default (): Router => {
      const router: Router = Router();
 
+     router.use('/auth', auth());
      router.use('/user', user());
      router.use('/product', product());
-     router.use('/auth', auth());
 
      return router;
 };

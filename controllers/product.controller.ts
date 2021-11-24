@@ -61,8 +61,16 @@ export const remove = catchAsync(async (req: Request, res: Response): Promise<vo
      res.status(httpStatus.OK).json(removedProduct);
 });
 
-
-
+/**
+ * Update product.
+ *
+ * @param req - This should be the Request
+ * @param res - This should be the Response
+ */
 export const update = catchAsync(async (req: Request, res: Response): Promise<void> => {
-     console.log('update products');
+     const _id: string = req.params.productId;
+
+     const updatedProduct: IProduct = await productRepository.updateProduct(req.body, _id);
+
+     res.status(httpStatus.OK).json(updatedProduct);
 });
