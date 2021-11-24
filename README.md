@@ -1,5 +1,5 @@
-##rest API with Node.js, express and typescript
-####Base installation instruction
+## rest API with Node.js, express and typescript
+#### Base installation instruction
   ```shell
   cd Desktop/
   git clone https://github.com/cenga93/restAPI.git
@@ -15,7 +15,7 @@ _If you don't have and **node** and **npm**, execute the following command:_
   sudo apt install npm
   ```
 ***
-##Routes
+## Routes
   ```shell
   Auth
   ```
@@ -54,7 +54,7 @@ _If you don't have and **node** and **npm**, execute the following command:_
 
 `DELETE` &#8594; <span style="color:yellow">{{api_endpoint}}product/:productId</span> | `DELETE`
 
-##Dependencies
+## Dependencies
 * bcrypt
 * catch-async-express
 * compression
